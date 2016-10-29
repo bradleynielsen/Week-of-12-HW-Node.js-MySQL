@@ -13,10 +13,16 @@ var connection = mysql.createConnection({
 
 
 ////FUNCTIONS
-var orderItem = function(ItemID, ammount){
-
-	connection.query('UPDATE products SET StockQuantity=' + ammount + ' WHERE ItemID=' + ItemID);
+var orderItem = function(orderitemID, depcricateAmmount){
+	// var ItemID = ItemID;
 	
+	// var updateAmmount = ammount-;	
+	// console.log(orderitemID orderAmmount);
+
+
+	connection.query('UPDATE products SET StockQuantity=' + depcricateAmmount + ' WHERE ItemID=' + orderitemID, function(error, result) {
+		console.log(result);
+	});
 }
 
 
@@ -57,8 +63,8 @@ var whatToBuyID = function(){
 					// However, if your store does have enough of the product, you should fulfill the customer's order.
 					console.log("Make the order!");
 					var orderitemID = answers.ItemID;
-					var orderAmmount = answers.orderAmmount
-					orderItem(orderitemID, orderAmmount);
+					var depcricateAmmount = result[0].StockQuantity - answers.orderAmmount;
+					orderItem(orderitemID, depcricateAmmount);
 
 				} else {
 				// If not, the app should log a phrase like Insufficient quantity!, and then prevent the order from going through.
